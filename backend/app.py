@@ -1,4 +1,8 @@
 # app.py or wherever your Flask app initialization is done
+from dotenv import load_dotenv
+import os
+load_dotenv()  # Load environment variables from a .env file
+
 from flask import Flask
 from flask_cors import CORS
 from UserVerificationBackend.routes import download_bp

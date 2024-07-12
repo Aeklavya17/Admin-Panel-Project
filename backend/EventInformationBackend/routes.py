@@ -1,5 +1,3 @@
-# EventInformationBackend/routes.py
-import os
 from flask import Blueprint, request, jsonify
 from sqlalchemy import create_engine, Column, Integer, String, DateTime, Float, Boolean
 from sqlalchemy.orm import sessionmaker, declarative_base
@@ -7,6 +5,10 @@ from datetime import datetime
 from werkzeug.utils import secure_filename
 from azure.storage.blob import BlobServiceClient
 from config import BLOB_URL, CONTAINER_NAME, ACCOUNT_NAME, ACCOUNT_KEY, DB_CONNECTION_STRING_SQLALCHEMY
+
+# Ensure that the DB_CONNECTION_STRING_SQLALCHEMY is not None
+if not DB_CONNECTION_STRING_SQLALCHEMY:
+    raise ValueError("DB_CONNECTION_STRING_SQLALCHEMY is not set in config")
 
 # Initialize SQLAlchemy
 engine = create_engine(DB_CONNECTION_STRING_SQLALCHEMY)
