@@ -1,0 +1,87 @@
+/* Navigation bar */
+.navbar {
+  background-color: #ffffff; /* 30% color */
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for separation */
+  border-bottom: 1px solid #ddd; /* Add a bottom border for separation */
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px; /* Adjust padding */
+  width: 150px; /* Adjust width */
+  height: auto;
+  cursor: pointer;
+}
+
+.navbar ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  margin: 0 auto;
+}
+
+.navbar ul li {
+  margin-right: 50px; /* Adjust margin */
+  font-size: x-large;
+}
+
+.navbar ul li a {
+  color: #00a2ff;
+  text-decoration: none;
+  font-size: 18px; /* Adjust font size */
+}
+
+.navbar ul li a:hover {
+  text-decoration: underline;
+}
+
+/* Profile icon */
+.user-icon {
+  width: 35px; /* Adjust size */
+  height: 35px; /* Adjust size */
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  margin-left: 10px; /* Add margin to bring it closer to the links */
+}
+
+/* Dropdown menu for user options */
+.dropdown {
+  position: absolute;
+  top: 65px; /* Adjust position to be below the icon */
+  right: 10px;
+  background-color: #000000;
+  color: #ffffff;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown p {
+  margin: 0;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.dropdown button {
+  padding: 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  color: #ffffff;
+}
+
+.dropdown button:hover {
+  background-color: #292929c3;
+}

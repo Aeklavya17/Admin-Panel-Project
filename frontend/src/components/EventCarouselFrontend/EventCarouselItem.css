@@ -1,0 +1,21 @@
+.event {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center align */
+    margin-bottom: 10px;
+}
+
+.event label {
+    margin-right: 10px;
+}
+
+.event input {
+    margin-right: 10px;
+    padding: 5px;
+    width: 300px; /* Adjust width as needed */
+}
+
+.event button {
+    padding: 5px 10px;
+    margin-left: 5px;
+}

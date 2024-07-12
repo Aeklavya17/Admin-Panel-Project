@@ -1,0 +1,88 @@
+/* Global styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff; /* Default background color */
+  backdrop-filter: blur(5px); /* Background blur effect */
+}
+
+/* Container styles */
+.signup-container,
+.login-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 80px auto; /* Adjusted margin for centering */
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+  border-radius: 8px;
+  text-align: center; /* Center content */
+}
+
+/* Heading styles */
+.signup-container h2,
+.login-container h2 {
+  color: #5cbcF3; /* 60% color */
+  margin-bottom: 20px;
+}
+
+/* Form styles */
+.signup-container form,
+.login-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center form elements */
+}
+
+.signup-container input,
+.login-container input {
+  width: 100%; /* Full width */
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  font-size: 16px;
+  text-align: center; /* Center text in inputs */
+  transition: border-color 0.3s ease; /* Transition for focus effect */
+}
+
+.signup-container input:focus,
+.login-container input:focus {
+  border-color: #5cbcF3; /* Highlight border color on focus */
+}
+
+.signup-container button,
+.login-container button {
+  padding: 10px 20px;
+  background-color: #5cbcF3; /* 60% color */
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.signup-container button:hover,
+.login-container button:hover {
+  background-color: #4ca1e6; /* Darker shade for hover effect */
+}
+
+/* Link styles */
+.signup-container p,
+.login-container p {
+  margin-top: 20px;
+}
+
+.signup-container a,
+.login-container a {
+  color: #5cbcF3; /* 60% color */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.signup-container a:hover,
+.login-container a:hover {
+  color: #4ca1e6; /* Darker shade for hover effect */
+}

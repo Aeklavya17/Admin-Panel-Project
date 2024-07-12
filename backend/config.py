@@ -1,0 +1,9 @@
+# config.py
+import os
+
+BLOB_URL = os.environ.get('BLOB_URL')
+CONTAINER_NAME = os.environ.get('CONTAINER_NAME')
+ACCOUNT_NAME = os.environ.get('ACCOUNT_NAME')
+ACCOUNT_KEY = os.environ.get('ACCOUNT_KEY')
+DB_CONNECTION_STRING_RAW = os.environ.get('DB_CONNECTION_STRING_RAW')
+DB_CONNECTION_STRING_SQLALCHEMY = os.environ.get('DB_CONNECTION_STRING_SQLALCHEMY')

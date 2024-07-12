@@ -1,0 +1,116 @@
+.App {
+    text-align: center;
+  }
+  
+  .event-carousel-container {
+    margin: 20px;
+  }
+  
+  button {
+    margin: 5px;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  .upload-image-container {
+    margin: 20px;
+  }
+  
+  .input-url {
+    width: 320px;
+    height: 30px;
+    margin-right: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .input-url:disabled {
+    background-color: #f9f9f9;
+  }
+  
+  .carousel-item {
+    display: center;
+    align-items: center;
+    margin: 10px 0;
+  }
+  
+  .carousel-item button {
+    margin-left: 10px;
+  }
+  
+  .create-button {
+    margin: 20px 0;
+    padding: 10px 20px;
+  }
+  
+  .upload-container {
+    text-align: center;
+  }
+  
+  .input-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .image-preview {
+    margin: 10px 0;
+  }
+  
+  .image-preview img {
+    max-width: 25%;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+  }
+  
+  .upload-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* New styles for header and create button alignment */
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px;
+  }
+  
+  .hidden-file-input {
+    display: none;
+  }
+  
+  .carousel-image {
+    max-width: 150px; /* Adjust the size as needed */
+    max-height: 150px; /* Adjust the size as needed */
+    margin-right: 10px;
+  }
+  
+  .carousel-item {
+    display: center;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .create-button {
+    margin-bottom: 20px;
+  }
