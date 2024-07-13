@@ -21,5 +21,8 @@ app.register_blueprint(download_bp1)
 app.register_blueprint(event_bp)
 app.register_blueprint(carousel_bp)
 
-if __name__ == '__main__':
-    app.run(debug=True,port=5001)
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5001)))
+
+# if __name__ == '__main__':
+#     app.run(debug=True,port=5001)
