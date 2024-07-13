@@ -10,7 +10,10 @@ def get_blob_service_client():
         account_url=f"{BLOB_URL}",
         credential=ACCOUNT_KEY
     )
-
+@download_bp.route('/', methods=['GET'])
+def default():
+    return jsonify({'message': 'Success',"status": "200 Server Is Running Successfully"}), 200
+    
 @download_bp.route('/fetch-users', methods=['GET'])
 def fetch_users():
     try:
