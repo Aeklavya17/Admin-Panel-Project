@@ -13,6 +13,9 @@ import Layout from './components/NavbarFrontend/Layout';
 import './App.css';
 
 function App() {
+  const apiUrl = process.env.REACT_APP_BACKEND_API_URL;
+  console.log('Backend API URL:', apiUrl);
+
   return (
     <Router>
       <div className="App">

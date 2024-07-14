@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -6,20 +6,23 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './Auth.css';
 
+// Define the API base URL
+const api_url = 'https://admin-panel-project.onrender.com';
+
 const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       toast.error('Passwords do not match');
       return;
     }
     try {
-      const response = await axios.post('http://localhost:5001/signup', { email, password });
+      const response = await axios.post(`${api_url}/signup`, { email, password });
       if (response.status === 201) {
         toast.success('Signup successful');
         navigate('/login');
@@ -27,7 +30,7 @@ const Signup = () => {
     } catch (error) {
       toast.error('Signup failed');
     }
-  };
+  }, [email, password, confirmPassword, navigate]);
 
   return (
     <motion.div

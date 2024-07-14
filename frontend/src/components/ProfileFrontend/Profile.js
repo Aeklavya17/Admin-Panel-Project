@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Profile.css';
+
+// Define the API base URL
+const api_url = 'https://admin-panel-project.onrender.com';
 
 function Profile() {
   const [oldPassword, setOldPassword] = useState('');
@@ -12,14 +15,14 @@ function Profile() {
 
   const adminEmail = localStorage.getItem('adminEmail');
 
-  const handleUpdate = async (e) => {
+  const handleUpdate = useCallback(async (e) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
       alert('Passwords do not match');
       return;
     }
     try {
-      const response = await axios.post('http://localhost:5001/update-admin', {
+      const response = await axios.post(`${api_url}/update-admin`, {
         email: adminEmail,
         old_password: oldPassword,
         new_password: newPassword,
@@ -30,18 +33,18 @@ function Profile() {
       alert('Error updating profile');
       console.error(error);
     }
-  };
+  }, [adminEmail, oldPassword, newPassword, confirmPassword]);
 
-  const handleDelete = async () => {
+  const handleDelete = useCallback(async () => {
     try {
-      await axios.post('http://localhost:5001/delete-admin', { email: adminEmail });
+      await axios.post(`${api_url}/delete-admin`, { email: adminEmail });
       alert('Account deleted successfully');
       navigate('/login');
     } catch (error) {
       alert('Error deleting account');
       console.error(error);
     }
-  };
+  }, [adminEmail, navigate]);
 
   return (
     <div className="profile-container">

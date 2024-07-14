@@ -6,6 +6,7 @@ const UploadImage = ({ onCreate }) => {
   const [file, setFile] = useState(null);
   const [eventId, setEventId] = useState('');
   const [previewUrl, setPreviewUrl] = useState('');
+  const apiUrl = process.env.REACT_APP_BACKEND_API_URL;
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -27,7 +28,7 @@ const UploadImage = ({ onCreate }) => {
 
     try {
       // Step 1: Generate File URL
-      const generateResponse = await axios.post('http://localhost:5001/generate_image_url', formData, {
+      const generateResponse = await axios.post(`${apiUrl}/generate_image_url`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -35,14 +36,14 @@ const UploadImage = ({ onCreate }) => {
       const fileUrl = generateResponse.data.file_url;
 
       // Step 2: Upload to Azure
-      await axios.post('http://localhost:5001/upload_image_to_azure', { file_url: fileUrl, file }, {
+      await axios.post(`${apiUrl}/upload_image_to_azure`, { file_url: fileUrl, file }, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
 
       // Step 3: Save to Database
-      await axios.post('http://localhost:5001/event_carousels', {
+      await axios.post(`${apiUrl}/event_carousels`, {
         event_id: eventId,
         carousel_url: fileUrl,
       });

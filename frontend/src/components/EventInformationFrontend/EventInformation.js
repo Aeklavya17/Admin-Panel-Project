@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import {
   Container,
@@ -71,19 +71,22 @@ const EventInformation = () => {
   const [preview, setPreview] = useState('');
   const [isUpdating, setIsUpdating] = useState(false);
   const [open, setOpen] = useState(false);
+  const apiUrl = process.env.REACT_APP_BACKEND_API_URL;
 
-  useEffect(() => {
-    fetchEvents();
-  }, []);
-
-  const fetchEvents = async () => {
+  // Define fetchEvents using useCallback to avoid unnecessary re-creations
+  const fetchEvents = useCallback(async () => {
     try {
-      const response = await axios.get('http://localhost:5001/events');
+      const response = await axios.get(`${apiUrl}/events`);
       setEvents(response.data);
     } catch (error) {
       console.error('Error fetching events:', error);
     }
-  };
+  }, [apiUrl]);
+
+  // Call fetchEvents when the component mounts or apiUrl changes
+  useEffect(() => {
+    fetchEvents();
+  }, [fetchEvents]);
 
   const handleChange = (e) => {
     if (e.target.name === 'photo') {
@@ -105,9 +108,9 @@ const EventInformation = () => {
 
     try {
       if (isUpdating) {
-        await axios.patch(`http://localhost:5001/events/${form.id}`, formData);
+        await axios.patch(`${apiUrl}/events/${form.id}`, formData);
       } else {
-        await axios.post('http://localhost:5001/events', formData, {
+        await axios.post(`${apiUrl}/events`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
@@ -115,7 +118,7 @@ const EventInformation = () => {
       }
 
       resetForm();
-      fetchEvents();
+      fetchEvents();  // Fetch events again after form submission
       handleClose();
     } catch (error) {
       console.error('Error submitting event:', error);
@@ -262,16 +265,13 @@ const EventInformation = () => {
             </TextField>
             <TextField
               className={classes.formItem}
-              label="Lowest Ticket Price (₹)"
+              label="Lowest Ticket Price"
               name="lowest_ticket_price"
               value={form.lowest_ticket_price}
               onChange={handleChange}
               type="number"
               required
               fullWidth
-              InputProps={{
-                inputProps: { min: 0 },
-              }}
             />
             <TextField
               className={classes.formItem}
@@ -288,7 +288,20 @@ const EventInformation = () => {
               name="tags"
               value={form.tags}
               onChange={handleChange}
+              required
               fullWidth
+            />
+            <FormControlLabel
+              className={classes.formItem}
+              control={
+                <Checkbox
+                  checked={form.tickets_available}
+                  onChange={handleChange}
+                  name="tickets_available"
+                  color="primary"
+                />
+              }
+              label="Tickets Available"
             />
             <TextField
               className={classes.formItem}
@@ -301,46 +314,38 @@ const EventInformation = () => {
               required
               fullWidth
             />
-            <FormControlLabel
-              className={classes.formItem}
-              control={
-                <Checkbox
-                  checked={form.tickets_available}
-                  onChange={handleChange}
-                  name="tickets_available"
-                />
-              }
-              label="Tickets Available"
-            />
-            <input
-              accept="image/*"
-              style={{ display: 'none' }}
-              id="contained-button-file"
-              type="file"
-              onChange={handleChange}
-              name="photo"
-            />
-            <label htmlFor="contained-button-file">
+            <div className={classes.formItem}>
               <Button
                 variant="contained"
-                color="primary"
-                component="span"
-                className={classes.formItem}
+                component="label"
                 fullWidth
               >
-                Upload Thumbnail
+                Upload Photo
+                <input
+                  type="file"
+                  name="photo"
+                  hidden
+                  onChange={handleChange}
+                  required={!isUpdating}
+                />
               </Button>
-            </label>
+            </div>
             {preview && (
               <div className={classes.preview}>
-                <img src={preview} alt="Thumbnail Preview" style={{ maxWidth: '100%' }} />
+                <Card>
+                  <CardMedia
+                    className={classes.media}
+                    image={preview}
+                    title="Event Photo"
+                  />
+                </Card>
               </div>
             )}
             <DialogActions>
               <Button onClick={handleClose} color="secondary">
                 Cancel
               </Button>
-              <Button type="submit" variant="contained" color="primary">
+              <Button type="submit" color="primary">
                 {isUpdating ? 'Update' : 'Create'}
               </Button>
             </DialogActions>
@@ -348,51 +353,56 @@ const EventInformation = () => {
         </DialogContent>
       </Dialog>
 
-      <Grid container spacing={3}>
-        {events.map((event) => (
-          <Grid item xs={12} sm={6} md={4} key={event.id}>
-            <Card className={classes.eventCard}>
-              <CardMedia
-                className={classes.media}
-                image={event.thumbnail_url}
-                title={event.name}
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {event.name}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Category: {event.category}
-                  <br />
-                  Language: {event.language}
-                  <br />
-                  City: {event.city}
-                  <br />
-                  Duration: {event.duration} hours
-                  <br />
-                  Lowest Ticket Price: {formatCurrency(event.lowest_ticket_price)}
-                  <br />
-                  Tickets Available: {event.tickets_available ? 'Yes' : 'No'}
-                  <br />
-                  Age Criteria: {event.age_criteria}
-                  <br />
-                  Tags: {event.tags}
-                </Typography>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => handleEdit(event)}
-                  fullWidth
-                  size="small"
-                  style={{ marginTop: '8px' }}
-                >
-                  Edit
-                </Button>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+      {events.map((event) => (
+        <Card className={classes.eventCard} key={event.id}>
+          <CardMedia
+            component="img"
+            alt={event.name}
+            height="140"
+            image={event.thumbnail_url}
+            title={event.name}
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              {event.name}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {event.about}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {`Category: ${event.category}`}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {`Duration: ${event.duration} hours`}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {`Language: ${event.language}`}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {`City: ${event.city}`}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {`Lowest Ticket Price: ${formatCurrency(event.lowest_ticket_price)}`}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {`Age Criteria: ${event.age_criteria}`}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {`Tags: ${event.tags}`}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {`Tickets Available: ${event.tickets_available ? 'Yes' : 'No'}`}
+            </Typography>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => handleEdit(event)}
+            >
+              Edit
+            </Button>
+          </CardContent>
+        </Card>
+      ))}
     </Container>
   );
 };

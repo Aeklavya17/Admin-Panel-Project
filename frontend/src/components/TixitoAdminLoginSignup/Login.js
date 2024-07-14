@@ -6,6 +6,9 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './Auth.css';
 
+// Define the API base URL
+const api_url = 'https://admin-panel-project.onrender.com';
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -14,10 +17,10 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5001/login', { email, password });
+      const response = await axios.post(`${api_url}/login`, { email, password });
       if (response.status === 200) {
         // Fetch admin details after successful login
-        const adminDetailsResponse = await axios.get(`http://localhost:5001/admin-details?email=${email}`);
+        const adminDetailsResponse = await axios.get(`${api_url}/admin-details?email=${email}`);
         if (adminDetailsResponse.status === 200) {
           // Store admin details in localStorage for later use in Navbar
           const adminEmail = adminDetailsResponse.data.email;

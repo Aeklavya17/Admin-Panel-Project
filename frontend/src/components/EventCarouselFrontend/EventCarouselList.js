@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import UploadImage from './UploadImage';
 import './App.css';
@@ -7,19 +7,20 @@ const EventCarouselList = () => {
   const [carousels, setCarousels] = useState([]);
   const [showUpload, setShowUpload] = useState(false);
   const [selectedCarousel, setSelectedCarousel] = useState(null);
+  const apiUrl = process.env.REACT_APP_BACKEND_API_URL;
 
-  useEffect(() => {
-    fetchCarousels();
-  }, []);
-
-  const fetchCarousels = async () => {
+  const fetchCarousels = useCallback(async () => {
     try {
-      const response = await axios.get('http://localhost:5001/event_carousels');
+      const response = await axios.get(`${apiUrl}/event_carousels`);
       setCarousels(response.data);
     } catch (error) {
       console.error('Error fetching carousels:', error);
     }
-  };
+  }, [apiUrl]);
+
+  useEffect(() => {
+    fetchCarousels();
+  }, [fetchCarousels]);
 
   const handleCreateClick = () => {
     setSelectedCarousel(null);
@@ -33,7 +34,7 @@ const EventCarouselList = () => {
 
   const handleDeleteClick = async (id) => {
     try {
-      await axios.delete(`http://localhost:5001/event_carousels/${id}`);
+      await axios.delete(`${apiUrl}/event_carousels/${id}`);
       fetchCarousels();
     } catch (error) {
       console.error('Error deleting carousel:', error);

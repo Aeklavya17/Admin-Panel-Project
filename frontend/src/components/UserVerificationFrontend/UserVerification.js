@@ -5,6 +5,9 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './UserVerification.css';
 
+// Define the API base URL
+const api_url = 'https://admin-panel-project.onrender.com';
+
 // Error Boundary Component
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -40,7 +43,7 @@ function UserVerification() {
 
   const fetchUsers = useCallback(async () => {
     try {
-      const response = await axios.get('http://localhost:5001/fetch-users');
+      const response = await axios.get(`${api_url}/fetch-users`);
       setUsers(response.data);
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -65,13 +68,13 @@ function UserVerification() {
     }
   };
 
-  const fetchDocument = async (email) => {
+  const fetchDocument = useCallback(async (email) => {
     if (fetchingDocument) return;
 
     try {
       setFetchingDocument(true);
 
-      const response = await axios.get(`http://localhost:5001/fetch-document?email_id=${email}`);
+      const response = await axios.get(`${api_url}/fetch-document?email_id=${email}`);
       const signedUrl = response.data.signedUrl;
 
       const type = determineDocumentType(signedUrl);
@@ -87,15 +90,15 @@ function UserVerification() {
     } finally {
       setFetchingDocument(false);
     }
-  };
+  }, [fetchingDocument, users]);
 
-  const handleVerifyUser = async (email) => {
+  const handleVerifyUser = useCallback(async (email) => {
     if (verifyingUser) return;
 
     try {
       setVerifyingUser(true);
 
-      const response = await axios.post(`http://localhost:5001/verify-user`, { email_id: email });
+      const response = await axios.post(`${api_url}/verify-user`, { email_id: email });
 
       if (response.status === 200) {
         fetchUsers();
@@ -110,7 +113,7 @@ function UserVerification() {
     } finally {
       setVerifyingUser(false);
     }
-  };
+  }, [verifyingUser, fetchUsers]);
 
   const closePopup = () => {
     setShowPopup(false);
