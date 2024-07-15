@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './Auth.css';
 
 // Define the API base URL
-const apiUrl = process.env.REACT_BACKEND_API_URL;
+const apiUrl = 'https://admin-panel-project.onrender.com';
 
 const Signup = () => {
   const [email, setEmail] = useState('');

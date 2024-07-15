@@ -6,7 +6,7 @@ const UploadImage = ({ onCreate }) => {
   const [file, setFile] = useState(null);
   const [eventId, setEventId] = useState('');
   const [previewUrl, setPreviewUrl] = useState('');
-  const apiUrl = process.env.REACT_BACKEND_API_URL;
+  const apiUrl = 'https://admin-panel-project.onrender.com';
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];

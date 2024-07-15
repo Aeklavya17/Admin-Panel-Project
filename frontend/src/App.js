@@ -13,7 +13,7 @@ import Layout from './components/NavbarFrontend/Layout';
 import './App.css';
 
 function App() {
-  const apiUrl = process.env.REACT_BACKEND_API_URL;
+  const apiUrl = 'https://admin-panel-project.onrender.com';
   console.log('Backend API URL:', apiUrl);
 
   return (

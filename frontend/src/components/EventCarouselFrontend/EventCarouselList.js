@@ -7,7 +7,8 @@ const EventCarouselList = () => {
   const [carousels, setCarousels] = useState([]);
   const [showUpload, setShowUpload] = useState(false);
   const [selectedCarousel, setSelectedCarousel] = useState(null);
-  const apiUrl = process.env.REACT_BACKEND_API_URL;
+  const apiUrl = 'https://admin-panel-project.onrender.com';
+  
 
   const fetchCarousels = useCallback(async () => {
     try {

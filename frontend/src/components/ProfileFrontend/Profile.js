@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import './Profile.css';
 
 // Define the API base URL
-  const apiUrl = process.env.REACT_BACKEND_API_URL;
+const apiUrl = 'https://admin-panel-project.onrender.com';
 
 function Profile() {
   const [oldPassword, setOldPassword] = useState('');
