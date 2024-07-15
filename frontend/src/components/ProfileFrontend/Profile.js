@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import './Profile.css';
 
 // Define the API base URL
-  const apiUrl = process.env.REACT_BACKEND_apiUrl;
+  const apiUrl = process.env.REACT_BACKEND_API_URL;
 
 function Profile() {
   const [oldPassword, setOldPassword] = useState('');

@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './Auth.css';
 
 // Define the API base URL  
-const apiUrl = process.env.REACT_BACKEND_apiUrl;
+const apiUrl = process.env.REACT_BACKEND_API_URL;
 
 
 const Login = () => {

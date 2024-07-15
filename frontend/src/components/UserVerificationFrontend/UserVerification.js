@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './UserVerification.css';
 
 // Define the API base URL
-const apiUrl = process.env.REACT_BACKEND_apiUrl;
+const apiUrl = process.env.REACT_BACKEND_API_URL;
 
 // Error Boundary Component
 class ErrorBoundary extends React.Component {
