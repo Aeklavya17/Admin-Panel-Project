@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './UserVerification.css';
 
 // Define the API base URL
-const api_url = 'https://admin-panel-project.onrender.com';
+const apiUrl = process.env.REACT_BACKEND_apiUrl;
 
 // Error Boundary Component
 class ErrorBoundary extends React.Component {
@@ -43,7 +43,7 @@ function UserVerification() {
 
   const fetchUsers = useCallback(async () => {
     try {
-      const response = await axios.get(`${api_url}/fetch-users`);
+      const response = await axios.get(`${apiUrl}/fetch-users`);
       setUsers(response.data);
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -74,7 +74,7 @@ function UserVerification() {
     try {
       setFetchingDocument(true);
 
-      const response = await axios.get(`${api_url}/fetch-document?email_id=${email}`);
+      const response = await axios.get(`${apiUrl}/fetch-document?email_id=${email}`);
       const signedUrl = response.data.signedUrl;
 
       const type = determineDocumentType(signedUrl);
@@ -98,7 +98,7 @@ function UserVerification() {
     try {
       setVerifyingUser(true);
 
-      const response = await axios.post(`${api_url}/verify-user`, { email_id: email });
+      const response = await axios.post(`${apiUrl}/verify-user`, { email_id: email });
 
       if (response.status === 200) {
         fetchUsers();

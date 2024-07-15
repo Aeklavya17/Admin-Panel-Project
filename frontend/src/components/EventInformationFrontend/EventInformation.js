@@ -71,7 +71,7 @@ const EventInformation = () => {
   const [preview, setPreview] = useState('');
   const [isUpdating, setIsUpdating] = useState(false);
   const [open, setOpen] = useState(false);
-  const apiUrl = process.env.REACT_APP_BACKEND_API_URL;
+  const apiUrl = process.env.REACT_BACKEND_API_URL;
 
   // Define fetchEvents using useCallback to avoid unnecessary re-creations
   const fetchEvents = useCallback(async () => {

@@ -7,7 +7,7 @@ const EventCarouselList = () => {
   const [carousels, setCarousels] = useState([]);
   const [showUpload, setShowUpload] = useState(false);
   const [selectedCarousel, setSelectedCarousel] = useState(null);
-  const apiUrl = process.env.REACT_APP_BACKEND_API_URL;
+  const apiUrl = process.env.REACT_BACKEND_API_URL;
 
   const fetchCarousels = useCallback(async () => {
     try {

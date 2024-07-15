@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './Auth.css';
 
 // Define the API base URL
-const api_url = 'https://admin-panel-project.onrender.com';
+const apiUrl = process.env.REACT_BACKEND_apiUrl;
 
 const Signup = () => {
   const [email, setEmail] = useState('');
@@ -22,7 +22,7 @@ const Signup = () => {
       return;
     }
     try {
-      const response = await axios.post(`${api_url}/signup`, { email, password });
+      const response = await axios.post(`${apiUrl}/signup`, { email, password });
       if (response.status === 201) {
         toast.success('Signup successful');
         navigate('/login');

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import './Profile.css';
 
 // Define the API base URL
-const api_url = 'https://admin-panel-project.onrender.com';
+  const apiUrl = process.env.REACT_BACKEND_apiUrl;
 
 function Profile() {
   const [oldPassword, setOldPassword] = useState('');
@@ -22,7 +22,7 @@ function Profile() {
       return;
     }
     try {
-      const response = await axios.post(`${api_url}/update-admin`, {
+      const response = await axios.post(`${apiUrl}/update-admin`, {
         email: adminEmail,
         old_password: oldPassword,
         new_password: newPassword,
@@ -37,7 +37,7 @@ function Profile() {
 
   const handleDelete = useCallback(async () => {
     try {
-      await axios.post(`${api_url}/delete-admin`, { email: adminEmail });
+      await axios.post(`${apiUrl}/delete-admin`, { email: adminEmail });
       alert('Account deleted successfully');
       navigate('/login');
     } catch (error) {
